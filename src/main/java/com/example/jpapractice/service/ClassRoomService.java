@@ -8,6 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/**
+ * @RequiredArgsContructor
+ * 롬복에서 제공
+ * final이나 notnull 필수적으로 필요한 것들을 포함해서 생성
+ * @Autowired를 사용해 생성자로 주입하던 것과 똑같은 기능을 해줌
+ *
+ * readOnly
+ * 기본적으로 트랜잭셔널이 일어나게 되면 엔티티의 변화를 확인하고 수정사항에 맞추어 수정을함
+ * readOnly=false가 기본값으로 적용이 되며, 변경감지와 그에 대한 flush가 일어나게됨
+ * 조회 메서드에서는 readOnly=true를 명시함으로써 최적화된 기능을 적용시킴
+ */
+
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
