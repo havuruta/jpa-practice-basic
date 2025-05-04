@@ -1,6 +1,7 @@
 package com.example.jpapractice.service;
 
 import com.example.jpapractice.dto.StudentDto;
+import com.example.jpapractice.entity.ClassRoom;
 import com.example.jpapractice.entity.Student;
 import com.example.jpapractice.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -55,11 +56,14 @@ public class StudentService {
      * @return 수정된 학생 정보
      */
     @Transactional
-    public Student updateStudent(Long id, Student updatedStudent) {
-        Student existingStudent = getStudentById(id);
+    public StudentDto updateStudent(Long id, Student updatedStudent) {
+        StudentDto existingStudent = getStudentById(id);
         existingStudent.setName(updatedStudent.getName());
         existingStudent.setAge(updatedStudent.getAge());
-        existingStudent.setClassRoom(updatedStudent.getClassRoom());
+        if(updatedStudent.getClassRoom() != null) {
+            ClassRoom classRoom = updatedStudent.getClassRoom();
+            existingStudent.setClassRoomName(classRoom.getName());
+        existingStudent.setClassRoomId(classRoom.getId());}
         return existingStudent;
     }
     
