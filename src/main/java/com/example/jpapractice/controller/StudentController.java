@@ -1,5 +1,6 @@
 package com.example.jpapractice.controller;
 
+import com.example.jpapractice.dto.StudentDto;
 import com.example.jpapractice.entity.Student;
 import com.example.jpapractice.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class StudentController {
      * @return 학생 목록
      */
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents() {
+    public ResponseEntity<List<StudentDto>> getAllStudents() {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
@@ -40,7 +41,7 @@ public class StudentController {
      * @return 학생 정보
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id) {
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
@@ -51,7 +52,7 @@ public class StudentController {
      * @return 수정된 학생 정보
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(
+    public ResponseEntity<StudentDto> updateStudent(
             @PathVariable Long id,
             @RequestBody Student updatedStudent) {
         return ResponseEntity.ok(studentService.updateStudent(id, updatedStudent));
