@@ -55,11 +55,12 @@ public class StudentService {
      * @return 수정된 학생 정보
      */
     @Transactional
-    public Student updateStudent(Long id, Student updatedStudent) {
-        Student existingStudent = getStudentById(id);
+    public StudentDto updateStudent(Long id, Student updatedStudent) {
+        StudentDto existingStudent = getStudentById(id);
         existingStudent.setName(updatedStudent.getName());
         existingStudent.setAge(updatedStudent.getAge());
-        existingStudent.setClassRoom(updatedStudent.getClassRoom());
+        existingStudent.setClassRoomName(updatedStudent.getClassRoom().getName());
+        existingStudent.setClassRoomId(updatedStudent.getClassRoom().getId());
         return existingStudent;
     }
     
