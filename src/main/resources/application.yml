@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: jpa-practice
+#  h2
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: root
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.ssafy.demo: DEBUG
+
+server:
+  port: ${SERVER_PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
