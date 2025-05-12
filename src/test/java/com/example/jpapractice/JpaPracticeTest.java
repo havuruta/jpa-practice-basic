@@ -4,6 +4,8 @@ import com.example.jpapractice.entity.ClassRoom;
 import com.example.jpapractice.entity.Student;
 import com.example.jpapractice.repository.ClassRoomRepository;
 import com.example.jpapractice.repository.StudentRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -107,4 +109,33 @@ class JpaPracticeTest {
         assertEquals(1, largeClassRooms.size());
         assertEquals("2반", largeClassRooms.get(0).getName());
     }
+
+    /**
+     *
+     * 순환 참조 확인 테스트
+     */
+    @Test
+    void testJacksonCircularReference_ShouldThrowException() {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ClassRoom classRoom = new ClassRoom();
+        classRoom.setName("1반");
+        classRoom.setCapacity(30);
+
+        Student student = new Student();
+        student.setName("홍길동");
+        student.setAge(15);
+        student.setClassRoom(classRoom);
+
+        classRoom.getStudents().add(student);
+
+        // JsonProcessingException exception =
+
+        assertThrows(JsonProcessingException.class, () -> {
+            mapper.writeValueAsString(student);
+        });
+
+        // System.out.println("예외 메시지: " + exception.getMessage());
+    }
+
 } 
